@@ -1,0 +1,24 @@
+{
+  "name": "@fohlen/d3-experiment",
+  "version": "1.0.0",
+  "description": "A D3 open data experiment using the data provided by the sauertracker API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "open",
+    "data",
+    "d3js"
+  ],
+  "author": "Lennard Berger",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "request": "^2.79.0"
+  }
+}
