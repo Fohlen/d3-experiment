@@ -2,8 +2,8 @@
   "name": "@fohlen/d3-experiment",
   "version": "1.0.0",
   "description": "A D3 open data experiment using the data provided by the sauertracker API.",
-  "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "mocha"
   },
   "keywords": [
@@ -19,6 +19,12 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "request": "^2.79.0"
-  }
+    "body-parser": "^1.16.0",
+    "browserify-middleware": "^7.1.0",
+    "d3": "^4.4.4",
+    "express": "^4.14.0",
+    "request": "^2.79.0",
+    "taffydb": "^2.7.3"
+  },
+  "private": "true"
 }
