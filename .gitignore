@@ -48,4 +48,4 @@ jspm_packages
 
 # Sauertracker data, might be published in a later stage on a data branch
 .sauertracker-data
-sauertracker-data.json
+.sauertracker-data.json

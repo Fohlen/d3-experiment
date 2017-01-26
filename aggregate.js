@@ -3,6 +3,7 @@ const database = require('./database');
 
 const util = require('util');
 const debuglog = util.debuglog('aggregate');
+const game_debuglog = util.debuglog('games'); // Meh.
 const timers = require('timers');
 const process = require('process');
 
@@ -36,7 +37,7 @@ function aggregate(index = 1, db = null) {
   let g = games(index);
   timers.setInterval(() => {
     g.next().value.then((game) => {
-      db.insert(game, (err, game) => debuglog('Inserted game %o', game));
+      db.insert(game, (err, game) => game_debuglog('Inserted game %o', game));
     }).catch((err) => {
       throw(err); // Whyever this doesn't handle rejections
     })
@@ -47,9 +48,9 @@ function aggregate(index = 1, db = null) {
 var db = database.load();
 var index = 1;
 db.count({}, (err, count) => {
-  if (count > 0) index = count;
+  let index = (count > 0) ? count : 1; // This is not accurate when disturbed ^^
+  aggregate(index, db);
 })
-aggregate(index, db);
 
 // There might be a better way to handle this;
 process.on('uncaughtException', (err) => {
