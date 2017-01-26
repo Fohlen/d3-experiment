@@ -24,7 +24,10 @@
     "d3": "^4.4.4",
     "express": "^4.14.0",
     "request": "^2.79.0",
-    "taffydb": "^2.7.3"
+    "tingodb": "^0.5.1"
   },
-  "private": "true"
+  "private": "true",
+  "optionalDependencies": {
+    "mongodb": "^2.2.22"
+  }
 }
