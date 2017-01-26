@@ -1,27 +1,14 @@
-const util = require('util');
-const debuglog = util.debuglog('database');
-
-// Either use mongodb or fall back to tingodb
-try {
-  var Engine = require('mongodb');
-  debuglog('Using MongoDB as Engine');
-} catch (e) {
-  debuglog('Using TingoDB as Engine');
-  var Engine = require('tingodb')();
-}
+const Datastore = require('nedb');
 
 /**
- * Loads a database using the tingodb database
- * @function
- * @param {string} name
+ * Loads a database from given path
+ * @param  {string} path
  * @return {Object}
- * @see {@link http://www.tingodb.com/info/}
  */
-function load(name='sauertracker-data') {
-  debuglog('Loading database with name %s', name)
-  var db = new Engine.Db(name, {})
-
-  return db;
+function load(path) {
+  return new Datastore({
+    filename: path
+  })
 }
 
 module.exports = {

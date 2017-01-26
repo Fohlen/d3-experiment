@@ -46,3 +46,6 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
+# Sauertracker data, might be published in a later stage on a data branch
+.sauertracker-data
+sauertracker-data.json
