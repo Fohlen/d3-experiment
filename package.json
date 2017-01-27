@@ -23,6 +23,7 @@
     "browserify-middleware": "^7.1.0",
     "d3": "^4.4.4",
     "express": "^4.14.0",
+    "mongodb": "^2.2.22",
     "nedb": "^1.8.0",
     "request": "^2.79.0"
   },

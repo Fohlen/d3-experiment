@@ -19,7 +19,7 @@ function* games(index = 1) {
         p = sauertracker.game(index);
         p.catch(() => ok = false);
         yield p;
-        debuglog('Fetching game with index %n', index)
+        debuglog('Fetching game with index %d', index)
         index += 1;
     }
 }
@@ -29,30 +29,33 @@ function* games(index = 1) {
 /**
  * Aggregates over the API and inserts games
  * @param  {number} index [1]
- * @param  {Object} db [null]
+ * @param {Object} collection - a MongoDB collection object
  */
-function aggregate(index = 1, db = null) {
-  debuglog('Starting aggregation at index %n', index)
+function aggregate(index = 1, collection) {
+  debuglog('Starting aggregation at index %d', index)
 
   let g = games(index);
   timers.setInterval(() => {
     g.next().value.then((game) => {
-      db.insert(game, (err, game) => game_debuglog('Inserted game %o', game));
-    }).catch((err) => {
-      throw(err); // Whyever this doesn't handle rejections
+      collection.insertOne(game, {}, (err, game) => game_debuglog('Inserted game %o', game));
     })
-  }, 1000)
+  }, 200)
 }
 
 // Maybe outsource this?
-var db = database.load();
-var index = 1;
-db.count({}, (err, count) => {
-  let index = (count > 0) ? count : 1; // This is not accurate when disturbed ^^
-  aggregate(index, db);
+var db = database.connect();
+database.connect().then((Db) => {
+  let collection = Db.collection('games');
+  collection.count(function(err, count) {
+    let index = (count > 0) ? count : 1;
+    aggregate(index, collection)
+  })
 })
 
 // There might be a better way to handle this;
 process.on('uncaughtException', (err) => {
-  if (err instanceof TypeError) console.log('Ended updating. Wrote data successfully.');
+  if (err instanceof TypeError) {
+    debuglog('Ended updating.');
+    process.exit();
+  }
 })

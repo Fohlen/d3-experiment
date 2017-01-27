@@ -1,19 +1,20 @@
-const Datastore = require('nedb');
-const path = require('path');
+const util = require('util');
+const debuglog = util.debuglog('database');
+const MongoClient = require('mongodb').MongoClient;
+const config = require('./config.json');
 
-/**
- * Loads a database from given file name
- * @param  {string} name
- * @return {Object}
- */
-function load(name = '/.sauertracker-data.json') {
-  let _path = path.resolve(__dirname + name)
-  return new Datastore({
-    filename: _path,
-    autoload: true
+function connect() {
+  return new Promise((resolve, reject) => {
+    // TODO: Add authentication
+
+    MongoClient.connect(config.url, (err, db) => {
+      if (err) reject(err);
+      debuglog("Connected correctly to server.");
+      resolve(db);
+    })
   })
 }
 
 module.exports = {
-  load: load
+  connect: connect
 }

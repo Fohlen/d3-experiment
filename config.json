@@ -1,0 +1,7 @@
+{
+  "url": "mongodb://localhost:27017/sauertracker",
+  "auth": {
+    "user": "",
+    "password": ""
+  }
+}
