@@ -1,0 +1,55 @@
+<html>
+<head>
+  <title>D3 experiment</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+  <div id="chart"></div>
+
+  <script>
+  const width = 500;
+  const height = 500;
+  const radius = Math.min(width, height) / 2;
+  const color = d3.scaleOrdinal(d3.schemeCategory20b);
+
+  let svg = d3.select('#chart')
+    .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    .append('g')
+      .attr('transform', 'translate(' + (width / 2) +  ',' + (height / 2) + ')');
+
+  let arc = d3.arc()
+    .innerRadius(0)
+    .outerRadius(radius);
+
+  d3.json('/api/server/countries', (data) => {
+    let pie = d3.pie()
+      .value((d) => d.total)
+
+    /**let path = svg.selectAll('path')
+      .data(pie(data))
+      .enter()
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', (d, i) => color(d.data._id))*/
+    let g = svg.selectAll('.arc')
+      .data(pie(data))
+      .enter()
+      .append('g')
+      .attr('class', 'arc')
+
+    g.append('path')
+      .attr('d', arc)
+      .style('fill', (d, i) => color(d.data._id))
+
+    g.append('text')
+      .attr('transform', (d) => "translate(" + arc.centroid(d) + ")" )
+      .attr('dy', '.35em')
+      .text((d) => d.data._id)
+
+  });
+  </script>
+
+</body>
+</html>
