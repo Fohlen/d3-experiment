@@ -26,11 +26,9 @@ nedb.find({}, (err, docs) => {
     database.connect().then((Db) => {
       let col = Db.collection('games');
       let batch = col.initializeUnorderedBulkOp();
+      debuglog('Starting insertion')
       docs.forEach((game) => {
-        batch.find(game).upsert().replaceOne({
-          game,
-          used: false
-        })
+        batch.find(game).upsert().replaceOne(game)
       })
 
       batch.execute(function(err, result) {
