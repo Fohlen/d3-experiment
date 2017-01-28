@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "body-parser": "^1.16.0",
+    "country-data": "0.0.31",
     "express": "^4.14.0",
     "mongodb": "^2.2.22",
     "nedb": "^1.8.0",
