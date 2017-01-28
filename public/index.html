@@ -5,7 +5,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js" integrity="sha256-a8efFZkE8ZBfytq1k9LorWQGrPqty3Cvr9suCc4u+t0=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js" integrity="sha256-Wc2Uq3HwPZQ+Fb95WIzDfema9SAjcwzWjlEWDFdHFbM=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.8/datamaps.world.min.js" integrity="sha256-MM11H7FxxyGwyb+gndJIF4zAroRqOhCxaK4FDrM5QVM=" crossorigin="anonymous"></script>
-
   <style>
   .overlay{
       width:100%;
@@ -15,10 +14,10 @@
 </head>
 <body>
   <a href="https://github.com/Fohlen/d3-experiment"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-  <div id="countries" class="overlay"></div>
+  <div id="map" class="overlay"></div>
 
   <script>
-  d3.json('/api/server/countries', (data) => {
+  d3.json('/api/player/countries', (data) => {
     let dataset = []
     let values = data.map((obj) => obj.total)
 
@@ -37,7 +36,7 @@
     });
 
     new Datamap({
-        element: document.getElementById('countries'),
+        element: document.getElementById('map'),
         // countries don't listed in dataset will be painted with this color
         fills: { defaultFill: '#F5F5F5' },
         data: dataset,
