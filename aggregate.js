@@ -37,9 +37,10 @@ function aggregate(index = 1, collection) {
   let g = games(index);
   timers.setInterval(() => {
     g.next().value.then((game) => {
+      game.time = new Date(game.time);
       collection.insertOne(game, {}, (err, game) => game_debuglog('Inserted game %o', game));
     })
-  }, 200)
+  }, 400)
 }
 
 // Maybe outsource this?

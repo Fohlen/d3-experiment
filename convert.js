@@ -28,6 +28,7 @@ nedb.find({}, (err, docs) => {
       let batch = col.initializeUnorderedBulkOp();
       debuglog('Starting insertion')
       docs.forEach((game) => {
+        game.time = new Date(game.time);
         batch.find(game).upsert().replaceOne(game)
       })
 
