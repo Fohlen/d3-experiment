@@ -3,7 +3,7 @@ const config = require('./config.json');
 const forever = require('forever');
 var child = new (forever.Monitor)('aggregate.js');
 
-child.on('exit', function() {
+child.on('stderr', function() {
   database.connect().then((Db) => {
     Db.collection('games').count((count) => {
       if (count > config.limit) child.stop()
