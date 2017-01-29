@@ -12,9 +12,15 @@ api.get('/server/countries', (req, res) => {
   database.connect().then((Db) => {
     let collection = Db.collection('games');
     collection.aggregate([ { $group: {_id: "$country", total: { $sum: 1 } } } ], function (err, data) {
-      if (err) res.status(500).json(err);
-      data.forEach((obj) => obj._id = countries[obj._id].alpha3)
-      res.json(data)
+      dataset = []
+      data.forEach((obj, index) => {
+        if (typeof(countries[obj._id]) != 'undefined') { // Somehow it happens that the sauertracker API cannot identify the contry for all players
+          obj._id = countries[obj._id].alpha3;
+          dataset.push(obj);
+        }
+      })
+
+      res.json(dataset)
       Db.close()
     })
   })

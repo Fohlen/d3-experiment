@@ -1,7 +1,5 @@
 {
   "url": "mongodb://localhost:27017/sauertracker",
-  "auth": {
-    "user": "",
-    "password": ""
-  }
+  "port": 8080,
+  "limit": 34000
 }

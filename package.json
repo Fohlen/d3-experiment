@@ -22,6 +22,7 @@
     "body-parser": "^1.16.0",
     "country-data": "0.0.31",
     "express": "^4.14.0",
+    "forever-monitor": "^1.7.1",
     "mongodb": "^2.2.22",
     "nedb": "^1.8.0",
     "request": "^2.79.0"
